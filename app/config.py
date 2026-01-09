@@ -30,16 +30,17 @@ class AccessTokenSettings(BaseModel):
     lifetime_seconds: int = Field(
         default=60 * 60 * 24 * 7,  # 7 days
     )
+    reset_password_token_secret: str
+    verification_token_secret: str
 
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()
     db: DBSettings = DBSettings()
-    access_token: AccessTokenSettings = AccessTokenSettings()
-
+    access_token: AccessTokenSettings
     model_config = ConfigDict(
         case_sensitive=False,
         env_file=".env",
-        env_prefix="APP_",
+        env_prefix="APP",
         env_nested_delimiter="__",
     )
 
