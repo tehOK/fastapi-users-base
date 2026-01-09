@@ -1,5 +1,5 @@
 __all__ = (
-    "IdIntPkMixins",
+    "IdIntPkMixin",
 )
 
 from .id_int_pk import IdIntPkMixin

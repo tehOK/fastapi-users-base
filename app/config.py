@@ -26,11 +26,15 @@ class DBSettings(BaseModel):
         "pk": "pk_%(table_name)s",
     }
 
-
+class AccessTokenSettings(BaseModel):
+    lifetime_seconds: int = Field(
+        default=60 * 60 * 24 * 7,  # 7 days
+    )
 
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()
     db: DBSettings = DBSettings()
+    access_token: AccessTokenSettings = AccessTokenSettings()
 
     model_config = ConfigDict(
         case_sensitive=False,
