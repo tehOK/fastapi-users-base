@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic_settings import BaseSettings
 
@@ -26,12 +24,14 @@ class DBSettings(BaseModel):
         "pk": "pk_%(table_name)s",
     }
 
+
 class AccessTokenSettings(BaseModel):
     lifetime_seconds: int = Field(
         default=60 * 60 * 24 * 7,  # 7 days
     )
     reset_password_token_secret: str
     verification_token_secret: str
+
 
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()

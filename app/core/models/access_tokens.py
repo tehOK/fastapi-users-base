@@ -25,5 +25,3 @@ class AccessToken(Base, SQLAlchemyBaseAccessTokenTable[int]):
         session: "AsyncSession",
     ):
         return SQLAlchemyAccessTokenDatabase(session, cls)
-
-

@@ -1,13 +1,16 @@
-from typing import AsyncGenerator
+from typing import AsyncGenerator, TYPE_CHECKING
 
 from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    create_async_engine,
-    async_sessionmaker,
     AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
 )
 
 from config import settings
+
+if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncEngine
+
 
 class DBHelper:
     def __init__(
@@ -15,7 +18,7 @@ class DBHelper:
         url: bool,
         echo: bool,
     ) -> None:
-        self.engine: AsyncEngine = create_async_engine(
+        self.engine: "AsyncEngine" = create_async_engine(
             url=url,
             echo=echo,
         )
@@ -26,12 +29,13 @@ class DBHelper:
             expire_on_commit=False,
         )
 
-    async def dispose(self) ->None:
+    async def dispose(self) -> None:
         await self.engine.dispose()
 
     async def session_getter(self) -> AsyncGenerator[AsyncSession, None]:
         async with self.session_factory() as session:
             yield session
+
 
 db_helper = DBHelper(
     url=settings.db.db_url,
