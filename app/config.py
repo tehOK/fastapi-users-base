@@ -27,6 +27,7 @@ class DBSettings(BaseModel):
     }
 
 
+
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()
     db: DBSettings = DBSettings()
